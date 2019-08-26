@@ -1,0 +1,45 @@
+
+.container
+  table
+    thead
+      tr
+        th colspan="3" 大乐透
+      tr
+        th 期号
+        th 红球
+        th 篮球
+    tbody
+      - @items.each do |item|
+        tr
+          td = item[:number]
+          td = item[:five]
+          td = item[:two]
+
+  table
+    thead
+      tr
+        th colspan="3" 双色球
+      tr
+        th 期号
+        th 红球
+        th 篮球
+    tbody
+      - @s_items.each do |item|
+        tr
+          td = item[:number]
+          td = item[:five]
+          td = item[:two]
+
+css:
+  .container {
+    display: flex;
+  }
+  table {
+    width: 50%;
+  }
+  table:first-child {
+    border-right: 1px solid gray;
+  }
+  table td {
+    text-align: center;
+  }
