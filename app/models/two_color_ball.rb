@@ -1,0 +1,2 @@
+class TwoColorBall < LotteryTicket
+end

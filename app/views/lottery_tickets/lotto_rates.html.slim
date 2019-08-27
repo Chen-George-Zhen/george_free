@@ -1,0 +1,34 @@
+.container
+  table
+    thead
+      tr
+        th colspan="2" 大乐透 红球中奖几率
+    tbody
+      - @red_ball_rates.each do |item|
+        tr
+          td = item[:number]
+          td = item[:rate]
+
+  table
+    thead
+      tr
+        th colspan="2" 大乐透 篮球球中奖几率
+    tbody
+      - @blue_ball_rates.each do |item|
+        tr
+          td = item[:number]
+          td = item[:rate]
+
+css:
+  .container {
+    display: flex;
+  }
+  table {
+    width: 50%;
+  }
+  table:first-child {
+    border-right: 1px solid gray;
+  }
+  table td {
+    text-align: center;
+  }

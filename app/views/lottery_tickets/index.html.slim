@@ -1,4 +1,3 @@
-
 .container
   table
     thead
@@ -9,11 +8,11 @@
         th 红球
         th 篮球
     tbody
-      - @items.each do |item|
+      - @lottos.each do |item|
         tr
-          td = item[:number]
-          td = item[:five]
-          td = item[:two]
+          td = item.issue_numer
+          td = item.red_balls.join(" ")
+          td = item.blue_balls.join(" ")
 
   table
     thead
@@ -24,11 +23,11 @@
         th 红球
         th 篮球
     tbody
-      - @s_items.each do |item|
+      - @two_color_balls.each do |item|
         tr
-          td = item[:number]
-          td = item[:five]
-          td = item[:two]
+          td = item.issue_numer
+          td = item.red_balls.join(" ")
+          td = item.blue_balls.join(" ")
 
 css:
   .container {

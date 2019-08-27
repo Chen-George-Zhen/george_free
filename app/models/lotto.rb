@@ -1,0 +1,2 @@
+class Lotto < LotteryTicket
+end

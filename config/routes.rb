@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   resources :lottery_tickets, only: [:index] do
     collection do
-      post :get_history
+      get :lotto_rates, :two_color_rates
     end
   end
 end
