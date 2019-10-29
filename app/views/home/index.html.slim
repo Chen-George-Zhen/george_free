@@ -1,0 +1,5 @@
+.buttons
+  = link_to "查看中奖号码数据", lottery_tickets_path, class: 'button'
+  = link_to "大乐透中奖号码概率", lotto_rates_lottery_tickets_path, class: 'button'
+  = link_to "双色球中奖号码概率", two_color_rates_lottery_tickets_path, class: 'button'
+  = link_to "摇号", get_recomand_balls_lottery_tickets_path(rand: rand(100)), class: 'button'

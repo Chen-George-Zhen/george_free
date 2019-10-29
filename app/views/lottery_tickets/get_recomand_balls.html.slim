@@ -1,0 +1,46 @@
+.container
+  table
+    thead
+      tr
+        th colspan="4" 大乐透
+      tr
+        th 方式
+        th 红球
+        th 篮球
+        th 中奖历史
+    tbody
+      tr
+        td 追冷
+        td = @lt_could_red_balls
+        td = @lt_could_blue_balls
+        td = @lt_could_is_v ? "有" : "无"
+      tr
+        td 追热
+        td = @lt_hot_red_balls
+        td = @lt_hot_blue_balls
+        td = @lt_hot_is_v ? "有" : "无"
+
+.container
+  table
+    thead
+      tr
+        th colspan="4" 双色球
+      tr
+        th 方式
+        th 红球
+        th 篮球
+        th 中奖历史
+    tbody
+      tr
+        td 追冷
+        td = @ss_could_red_balls
+        td = @ss_could_blue_balls
+        td = @ss_hot_is_v ? "有" : "无"
+      tr
+        td 追热
+        td = @ss_hot_red_balls
+        td = @ss_hot_blue_balls
+        td = @ss_hot_is_v ? "有" : "无"
+
+.buttons
+  = link_to "重摇", get_recomand_balls_lottery_tickets_path(rand: SecureRandom.base64()), class: 'button'

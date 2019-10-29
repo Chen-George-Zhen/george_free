@@ -74,5 +74,87 @@ class LotteryTicketsController < ApplicationController
   end
 
   def two_color_rates
+    totals = TwoColorBall.all.size
+    red_numbers = TwoColorBall.pluck(:red_balls).flatten
+    @red_ball_rates = (1..33).to_a.map do |x|
+      num = "%02d" % x
+      {
+        number: num,
+        rate: helpers.number_to_percentage(red_numbers.select{ |x| x == num }.size.to_d / totals * 100, precision: 2)
+      }
+    end
+    blue_numbers = TwoColorBall.pluck(:blue_balls).flatten
+    @blue_ball_rates = (1..16).to_a.map do |x|
+      num = "%02d" % x
+      {
+        number: num,
+        rate: helpers.number_to_percentage(blue_numbers.select{ |x| x == num }.size.to_d / totals * 100, precision: 2)
+      }
+    end
+  end
+
+  def get_recomand_balls
+    # 大乐透 追冷 追热
+    lt_red_numbers = Lotto.pluck(:red_balls).flatten
+    lt_red_ball_rates = (1..35).to_a.map do |x|
+      num = "%02d" % x
+      {
+        number: num,
+        count: lt_red_numbers.select{ |x| x == num }.size
+      }
+    end
+    lt_red_ball_rates = lt_red_ball_rates.sort_by{|x| x[:count] }
+
+    @lt_could_red_balls = lt_red_ball_rates.first(15).sample(5).map{|x| x[:number]}.sort
+    @lt_hot_red_balls = lt_red_ball_rates.last(15).sample(5).map{|x| x[:number]}.sort
+
+    lt_blue_numbers = Lotto.pluck(:blue_balls).flatten
+    lt_blue_ball_rates = (1..12).to_a.map do |x|
+      num = "%02d" % x
+      {
+        number: num,
+        count: lt_blue_numbers.select{ |x| x == num }.size.to_d
+      }
+    end
+    lt_blue_ball_rates = lt_blue_ball_rates.sort_by{|x| x[:count] }
+
+    @lt_could_blue_balls = lt_blue_ball_rates.first(6).sample(2).map{|x| x[:number]}.sort
+    @lt_hot_blue_balls = lt_blue_ball_rates.last(6).sample(2).map{|x| x[:number]}.sort
+
+    # 是否有中奖历史
+    @lt_could_is_v = Lotto.find_by(red_balls: @lt_could_red_balls, blue_balls: @lt_could_blue_balls).present?
+    @lt_hot_is_v = Lotto.find_by(red_balls: @lt_hot_red_balls, blue_balls: @lt_hot_blue_balls).present?
+
+    # 双色球 追冷 追热
+    ss_red_numbers = TwoColorBall.pluck(:red_balls).flatten
+    ss_red_ball_rates = (1..33).to_a.map do |x|
+      num = "%02d" % x
+      {
+        number: num,
+        count: ss_red_numbers.select{ |x| x == num }.size
+      }
+    end
+    ss_red_ball_rates = ss_red_ball_rates.sort_by{|x| x[:count] }
+
+    @ss_could_red_balls = ss_red_ball_rates.first(15).sample(6).map{|x| x[:number]}.sort
+    @ss_hot_red_balls = ss_red_ball_rates.last(15).sample(6).map{|x| x[:number]}.sort
+
+    ss_blue_numbers = TwoColorBall.pluck(:blue_balls).flatten
+    ss_blue_ball_rates = (1..16).to_a.map do |x|
+      num = "%02d" % x
+      {
+        number: num,
+        count: ss_blue_numbers.select{ |x| x == num }.size.to_d
+      }
+    end
+    ss_blue_ball_rates = ss_blue_ball_rates.sort_by{|x| x[:count] }
+
+    @ss_could_blue_balls = ss_blue_ball_rates.first(8).sample(1).map{|x| x[:number]}.sort
+    @ss_hot_blue_balls = ss_blue_ball_rates.last(8).sample(1).map{|x| x[:number]}.sort
+
+    # 是否有中奖历史
+    @ss_could_is_v = TwoColorBall.find_by(red_balls: @ss_could_red_balls, blue_balls: @ss_could_blue_balls).present?
+    @ss_hot_is_v = TwoColorBall.find_by(red_balls: @ss_hot_red_balls, blue_balls: @ss_hot_blue_balls).present?
+
   end
 end

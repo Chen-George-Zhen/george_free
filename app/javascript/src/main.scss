@@ -1,0 +1,46 @@
+
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+table {
+  margin-top: 40px;
+  width: 50%;
+  border-collapse: separate;
+  border-spacing: 0;
+  thead tr {
+    background: gray;
+  }
+  tbody tr {
+    &:nth-child(2n) {
+      background: #ddd;
+    }
+
+  }
+  td {
+    text-align: center;
+  }
+  th,
+  td {
+    border: 1px solid #eee;
+    padding: 10px;
+  }
+}
+
+.buttons {
+  margin-top: 66px;
+  display: flex;
+  justify-content: center;
+  .button {
+    padding: 10px 20px;
+    background: orange;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    &:not(:last-child) {
+      margin-right: 20px;
+    }
+  }
+}
