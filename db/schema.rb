@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_27_144523) do
+ActiveRecord::Schema.define(version: 2019_11_06_134335) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "coins", force: :cascade do |t|
+    t.string "currency"
+    t.decimal "entent", precision: 40, scale: 20
+    t.decimal "basic_price", precision: 40, scale: 20
+    t.decimal "investment_amount", precision: 40, scale: 20
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["currency"], name: "index_coins_on_currency", unique: true
+  end
 
   create_table "lottery_tickets", force: :cascade do |t|
     t.string "type", null: false
@@ -23,6 +33,17 @@ ActiveRecord::Schema.define(version: 2019_08_27_144523) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["type", "issue_numer"], name: "index_lottery_tickets_on_type_and_issue_numer", unique: true
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.bigint "coin_id"
+    t.string "symbol"
+    t.decimal "price", precision: 40, scale: 20
+    t.decimal "amount", precision: 40, scale: 20
+    t.string "tr_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["coin_id"], name: "index_transactions_on_coin_id"
   end
 
 end

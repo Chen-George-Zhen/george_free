@@ -1,0 +1,19 @@
+注：价格和金额  单位为 usdt
+
+思路：
+1、设置 涨幅： entent，基准价：basic_price， 投资金额：investment_amount
+2、轮询 行情， 当 币种的 最低买入价格(min_buy_price)   小于等于  basic_price - entent            并且 最高买入价格(max_buy_price)  低于 基准价格(sell_price)，买入 投资金额（investment_amount）的 币；
+3、轮询 行情， 当 币种的 最高卖出价格(max_sell_price)  大于等于 上次购买价格(buy_price） + entent  并且 最低卖出价格(min_sell_price) 高于 上次购买价格(buy_price), 对应币种 全部卖出 获得 usdt；
+
+coins: 币种表
+  currency: 货币符 eos， ltc
+  entent: 每日价格涨跌幅度：比如 eos 0.2 usdt， ltc  2 usdt.
+  basic_price: 基准价格，可接受价格
+  investment_amount: 投资金额
+
+transactions:  交易表
+    coin_id: 币种
+    symbol: 交易对  eosusdt/htusdt/ltcusdt
+    price: 交易价格
+    amount: 交易数量（市价买单时表示买多少钱（此时最大精度固定为8），市价卖单时表示卖多少币）
+    tr_type: sell/buy 买卖
